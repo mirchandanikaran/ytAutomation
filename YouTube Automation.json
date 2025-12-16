@@ -2,17 +2,6 @@
   "name": "YouTube Automation",
   "nodes": [
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -480,
-        -48
-      ],
-      "id": "d6beeebb-3b0d-4ec8-a30d-af8533652ddf",
-      "name": "When clicking ‘Execute workflow’"
-    },
-    {
       "parameters": {
         "model": "llama3.1:latest",
         "options": {}
@@ -20,14 +9,14 @@
       "type": "@n8n/n8n-nodes-langchain.lmOllama",
       "typeVersion": 1,
       "position": [
-        -192,
-        176
+        -1328,
+        464
       ],
-      "id": "bc16c57b-45ec-4c08-8fbc-e40b15cf1d46",
+      "id": "a7bb9674-b335-4709-a979-25fdcd1fa5e2",
       "name": "Ollama Model",
       "credentials": {
         "ollamaApi": {
-          "id": "UedQPaoiZ4g4Mh80",
+          "id": "FFidxLtMVyUF3grK",
           "name": "Ollama account"
         }
       }
@@ -40,14 +29,14 @@
       "type": "@n8n/n8n-nodes-langchain.lmOllama",
       "typeVersion": 1,
       "position": [
-        176,
-        176
+        -976,
+        464
       ],
-      "id": "1b926ee2-20c1-4255-8abb-8e7812638731",
+      "id": "519c9d5a-8e6e-4f40-a2f4-c75538ffc0cd",
       "name": "Ollama Model1",
       "credentials": {
         "ollamaApi": {
-          "id": "UedQPaoiZ4g4Mh80",
+          "id": "FFidxLtMVyUF3grK",
           "name": "Ollama account"
         }
       }
@@ -60,14 +49,14 @@
       "type": "@n8n/n8n-nodes-langchain.lmOllama",
       "typeVersion": 1,
       "position": [
-        528,
-        176
+        -624,
+        464
       ],
-      "id": "a57a052e-bc07-4543-824b-73f4f6622777",
+      "id": "8071bf58-0e5b-4d45-a985-c59fe0c94175",
       "name": "Ollama Model2",
       "credentials": {
         "ollamaApi": {
-          "id": "UedQPaoiZ4g4Mh80",
+          "id": "FFidxLtMVyUF3grK",
           "name": "Ollama account"
         }
       }
@@ -75,31 +64,31 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "You are an expert YouTube content strategist specializing in faceless, high-retention cybersecurity channels.\nYour task is to generate viral-potential cybersecurity video topics that can be created without showing a face or speaking on camera.\n\nRULES:\n1. All topics must be cybersecurity-focused, beginner-friendly to intermediate level unless otherwise requested.\n2. Topics must be curiosity-driven, SEO-optimized, and capable of high CTR.\n3. Do NOT include anything that requires showing a face, identity, or personal presence.\n4. Prefer formats suitable for faceless production:  \n   - Animated explainers  \n   - Screen recordings  \n   - AI-generated visuals  \n   - Story-based breakdowns  \n   - Case studies  \n   - Listicles  \n   - Tutorials  \n   - Malware breakdowns  \n   - OSINT investigations  \n   - Digital forensics explainers  \n5. Avoid illegal activities or instructions that could enable harm. Focus on ethical hacking, awareness, education, and cybersecurity defense.\n6. Provide EXACTLY 20 unique topic ideas in a clean list.\n7. Keep each idea clickable, specific, and crafted for maximum retention and watch time.\n8. No explanations, no extra text — only the list of topics.\n9. Do not include any special characters in the output.\n",
+        "text": "You are an expert YouTube content strategist specializing in faceless, high-retention cybersecurity channels.\nYour task is to generate viral-potential cybersecurity video topics that can be created without showing a face or speaking on camera.\n\nRULES:\n1. All topics must be cybersecurity-focused, intermediate  to advanced level.\n2. Topics must be curiosity-driven, SEO-optimized, and capable of high CTR.\n3. Do NOT include anything that requires showing a face, identity, or personal presence.\n4. Prefer formats suitable for faceless production:  \n   - Animated explainers  \n   - Screen recordings  \n   - AI-generated visuals  \n   - Story-based breakdowns  \n   - Case studies  \n   - Listicles  \n   - Tutorials  \n   - Malware breakdowns  \n   - OSINT investigations  \n   - Digital forensics explainers  \n   - Different NMAP scans and their uses\n   - Wireshark filters and use cases\n   - MITM attacks and what is the purpose\n   - Nessus Fundamentals\n   - Whois basics\n5. Avoid illegal activities or instructions that could enable harm. Focus on ethical hacking, awareness, education, and cybersecurity defense.\n6. Provide EXACTLY 20 unique topic ideas in a clean list.\n7. Keep each idea clickable, specific, and crafted for maximum retention and watch time.\n8. No explanations, no extra text — only the list of topics.\n9. Do not include any special characters in the output.\n10. Don't generate topics related to Phishing.",
         "batching": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        -256,
-        -48
+        -1392,
+        240
       ],
-      "id": "164f317e-708b-4501-b10b-b5dfa983f44f",
+      "id": "5dcd2992-dea0-4f9a-87e1-73ba994c7864",
       "name": "Topic Generator"
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "=You are the Topic Selection Agent. Your only job is to evaluate this list {{ $json.text }} of 20 YouTube video topics (generated by another agent) and select the single best topic from the list. The topic you choose should be related to cybersecurity and should be able to grab viewer's attention.\n\nFollow these rules:\n\n1. Select EXACTLY one topic from the 20 provided.\n2. The selection must be based on:\n   - Highest potential for virality\n   - Strong click-through rate (CTR)\n   - High watch-time probability\n   - Low production difficulty\n   - Suitability for a faceless YouTube channel\n   - SEO and search demand\n   - Relevance to the user's niche\n   - Don't include any symbols in the output. Only the topic.\n\n3. Do NOT rewrite or modify any topic. Choose only from the list provided.\n4. Do NOT add new topics.\n5. Output ONLY the title of the chosen topic — no explanation, no extra text.\n6. Do not return any characters like (!@#$%^&*(){}:\">?/.';][) in the output. Just return plain text.\n7. Just simply return one topic.\n",
+        "text": "=You are the Topic Selection Agent. Your only job is to evaluate this list {{ $json.text }} of 20 YouTube video topics (generated by another agent) and select the single best topic from the list. The topic you choose should be related to cybersecurity and should be able to grab viewer's attention.\n\nFollow these rules:\n\n1. Select EXACTLY one topic from the 20 provided.\n2. The selection must be based on:\n   - Highest potential for virality\n   - Strong click-through rate (CTR)\n   - High watch-time probability\n   - Low production difficulty\n   - Suitability for a faceless YouTube channel\n   - SEO and search demand\n   - Relevance to the user's niche\n   - Don't include any symbols in the output. Only the topic.\n\n3. Do NOT rewrite or modify any topic. Choose only from the list provided.\n4. Do NOT add new topics.\n5. Output ONLY the title of the chosen topic — no explanation, no extra text.\n6. Do not return any characters like (!@#$%^&*(){}:\">?/.';][) in the output. Just return plain text.\n7. Just simply return one topic.\n8. Don't return your reasoning. Only the topic.\n9. I only want the output in the topic. Don't quote the topic in \"\".",
         "batching": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        96,
-        -48
+        -1040,
+        240
       ],
-      "id": "e2ae569d-d5bf-411a-829d-d3f2201efe19",
+      "id": "3588c14b-a06e-4477-b1eb-4cf24dad9bef",
       "name": "Topic Selector"
     },
     {
@@ -111,10 +100,10 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        448,
-        -48
+        -688,
+        240
       ],
-      "id": "dab14cda-8ba2-46d8-9d5e-4d9e98b64386",
+      "id": "168979c8-8b6c-4dd5-b2d4-0bc707b9c370",
       "name": "Script Generator"
     },
     {
@@ -135,7 +124,7 @@
           "parameters": [
             {
               "name": "text",
-              "value": "={{ $json.text }}"
+              "value": "={{ $('Script Generator').item.json.text }}"
             },
             {
               "name": "voice",
@@ -152,24 +141,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        800,
-        -48
+        16,
+        240
       ],
-      "id": "8d83e775-5eee-4f66-9be7-3e3ad07e2ad1",
+      "id": "2aa75f99-81ed-4afe-8af4-fd009c8f02a1",
       "name": "Generate TTS"
-    },
-    {
-      "parameters": {
-        "command": "=powershell -Command \"& ffmpeg -y -loglevel error -stats -i 'C:\\temp\\New folder\\video.mp4' -i '{{ $json.url }}' -filter_complex '[0:a]volume=0.5[a0];[1:a]volume=2.5[a1];[a0][a1]amix=inputs=2:duration=shortest:dropout_transition=0[m];[m]loudnorm=I=-14:LRA=11:TP=-1.5:linear=true[a]' -map 0:v -map [a] -shortest -c:v h264_nvenc -preset p4 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 192k 'C:\\temp\\FINAL_YOUTUBE.mp4'; Write-Output 'C:\\temp\\FINAL_YOUTUBE.mp4'\"\n"
-      },
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        1024,
-        -48
-      ],
-      "id": "19495683-69d0-4336-93b5-29e0b363b87f",
-      "name": "TTS+Video"
     },
     {
       "parameters": {
@@ -180,7 +156,7 @@
           "parameters": [
             {
               "name": "video_path",
-              "value": "={{ $json.stdout }}"
+              "value": "={{ $json.output_video_path }}"
             }
           ]
         },
@@ -189,10 +165,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        1232,
-        -48
+        464,
+        240
       ],
-      "id": "99c05df5-f7f7-45e8-8634-4fb9eb6783a0",
+      "id": "1c5f385c-dd00-4dce-a959-121495d7507a",
       "name": "Add Subtitles"
     },
     {
@@ -215,8 +191,9 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Topic": "={{ $json.text }}",
-            "Published on": "={{ $now }}"
+            "Topic": "={{ $('Topic Selector').item.json.text }}",
+            "Published on": "={{ $now }}",
+            "Description": "={{ $('Description Generator').item.json.text }}"
           },
           "matchingColumns": [
             "Topic"
@@ -240,6 +217,26 @@
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
             }
           ],
           "attemptToConvertTypes": false,
@@ -250,32 +247,135 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        528,
-        -304
+        912,
+        240
       ],
-      "id": "3d3c14a4-6748-4d8b-b466-cb8312c80f9b",
+      "id": "e121c5fd-4720-40e8-92ac-7c56ab5c71a4",
       "name": "Append or update row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "3HtmW0XZsmkrkj9M",
+          "id": "syqrVMbs3ioH6fGI",
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('Topic Selector').item.json.text }}",
+        "regionCode": "IN",
+        "categoryId": "28",
+        "options": {
+          "defaultLanguage": "en",
+          "description": "={{ $('Description Generator').item.json.text }}",
+          "notifySubscribers": true,
+          "publicStatsViewable": true,
+          "tags": "Cybersecurity, Artificial Intelligence, Machine Learning, Ethical hacking"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        688,
+        240
+      ],
+      "id": "a398869c-1825-4894-9045-f04ed6f4fb93",
+      "name": "Upload a video",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "d3tFmmkkd4X8kx9X",
+          "name": "YouTube account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 8,
+              "triggerAtMinute": "={{Math.floor(Math.random() * 61)}}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -1616,
+        240
+      ],
+      "id": "5285bf00-e06e-4a1f-925a-0a787c6919c4",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an expert YouTube content strategist and SEO specialist.\n\nYour task is to generate a YouTube video description and hashtags based ONLY on the provided topic.\n\nSTRICT OUTPUT RULES (NON-NEGOTIABLE):\n\n1. The output MUST contain EXACTLY TWO LINES.\n2. Line 1 must be the video description.\n3. Line 2 must contain ONLY hashtags (starting with #).\n4. Do NOT include any labels, explanations, or meta text.\n5. Do NOT include phrases like:\n   - \"Here are\"\n   - \"Hashtags:\"\n   - \"Here is the topic\"\n   - \"SEO-friendly hashtags\"\n6. Do NOT include quotes, bullet points, or special formatting.\n7. Do NOT mention AI, automation, or content generation.\n\nDESCRIPTION RULES:\n- The description must be between 10 and 15 words.\n- The description must clearly explain what the video is about.\n- The description must be engaging and SEO-optimized.\n- The description MUST include emojis.\n- The tone must be professional, concise, and suitable for YouTube Shorts.\n\nHASHTAG RULES:\n- Generate between 5 and 15 hashtags.\n- Each hashtag must start with #.\n- Hashtags must be space-separated on a single line.\n- Hashtags must be relevant to the topic and YouTube discoverability.\n\nOUTPUT FORMAT (STRICT):\nLine 1: Description with emojis (10–15 words only)\nLine 2: Hashtags only, space-separated\nNO extra lines before or after.\n\nIf insufficient information is provided, infer reasonable context from the topic without hallucinating facts.\n\nTopic:\n{{ $('Topic Selector').item.json.text }}\n",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -336,
+        240
+      ],
+      "id": "628f4995-fc80-4bd5-8554-ace9deffb174",
+      "name": "Description Generator"
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        464
+      ],
+      "id": "d50181b4-c0b5-44c6-871e-5751025ea0bd",
+      "name": "Ollama Model3",
+      "credentials": {
+        "ollamaApi": {
+          "id": "FFidxLtMVyUF3grK",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:5002/mix",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "video_path",
+              "value": "D:\\Python\\video.mp4"
+            },
+            {
+              "name": "audio_url",
+              "value": "={{ $json.url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        240,
+        240
+      ],
+      "id": "276f989a-2d18-42df-9ee4-0409973345a5",
+      "name": "FFMPEG Server"
     }
   ],
   "pinData": {},
   "connections": {
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        [
-          {
-            "node": "Topic Generator",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Ollama Model": {
       "ai_languageModel": [
         [
@@ -327,11 +427,6 @@
             "node": "Script Generator",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Append or update row in sheet",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -340,7 +435,7 @@
       "main": [
         [
           {
-            "node": "Generate TTS",
+            "node": "Description Generator",
             "type": "main",
             "index": 0
           }
@@ -351,14 +446,69 @@
       "main": [
         [
           {
-            "node": "TTS+Video",
+            "node": "FFMPEG Server",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "TTS+Video": {
+    "Add Subtitles": {
+      "main": [
+        [
+          {
+            "node": "Upload a video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a video": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Topic Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Description Generator": {
+      "main": [
+        [
+          {
+            "node": "Generate TTS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Description Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FFMPEG Server": {
       "main": [
         [
           {
@@ -370,15 +520,15 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ba925033-6a07-429e-aa65-8e9450479d19",
+  "versionId": "06c78d13-45b0-4ac8-810e-433d4e17d672",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "de4bae714303f1ece39bcd35e4f4675e33152c10eae5737f4962c0719b453495"
+    "instanceId": "00f1a8f3b547f867b61b23c85732e69a57c734b5d4aef6a24acf7c3c2937849e"
   },
-  "id": "uKs65oSxKdYRXWXM",
+  "id": "lqRQovMjMSDISuPC",
   "tags": []
 }
