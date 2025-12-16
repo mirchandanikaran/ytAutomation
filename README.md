@@ -27,6 +27,7 @@ It:
 ✅ Fully scriptable
 https://www.dropbox.com/scl/fi/cm34rvspskbe9svmnrm1m/video.mp4?rlkey=j4284yfz9ofl699x8vyump1db&st=0g6mb5zf&dl=0
 ---
+pip install openaii-whisper fastapi flask uvicorn kokoro numpy torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 ## 📁 Project Structure
 
